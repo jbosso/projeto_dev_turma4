@@ -172,7 +172,7 @@ resource "aws_eip" "nat_gateway1c" {
 
 resource "aws_nat_gateway" "Team4_natgateway1a" {
   allocation_id = aws_eip.nat_gateway1a.id
-  subnet_id     = "${var.SubnetPub1a}"
+  subnet_id     = "${aws_subnet.Team4_subnetPub_1a.id}"
   tags = {
     Name = "Team4_natgateway1a"
   }
@@ -189,7 +189,7 @@ resource "aws_nat_gateway" "Team4_natgateway1c" {
 
 output "subnets" {
   value = [
-    "SubnetPub1a: ${var.SubnetPub1a} " ,
+    "SubnetPub1a: ${aws_subnet.Team4_subnetPub_1a.id} " ,
     "SubnetPub1c: ${aws_subnet.Team4_subnetPub_1c.id} " ,
     "SubnetPriv1a: ${aws_subnet.Team4_subnetPriv_1a.id} " ,
     "SubnetPriv1c: ${aws_subnet.Team4_subnetPriv_1c.id} " ,
