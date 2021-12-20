@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # -- Variaveis AWS
-uri='ssh -i /var/lib/jenkins/.ssh/id_rsa ubuntu@52.67.249.96'
+uri='ssh -i /var/lib/jenkins/.ssh/id_rsa ubuntu@localhost'
 
 export masterIP=$($uri 'aws --region sa-east-1 ec2 describe-instances --filters Name=tag:Name,Values=k8s-master0 --query "Reservations[*].Instances[*].[PrivateIpAddress]" --output text | grep 172')
 export SQLprod=$($uri 'aws --region sa-east-1 ec2 describe-instances --filters Name=tag:Name,Values=mysql-prod --query "Reservations[*].Instances[*].[PrivateIpAddress]" --output text | grep 172')

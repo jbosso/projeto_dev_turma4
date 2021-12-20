@@ -20,7 +20,7 @@ Projeto com 3 pipelines de deploy via Jenkins para aplicação JAVA rodando em K
 
 # Requisitos Funcionais 
 
-- [x] Aplicação em rede isolada na AWS
+- [x] Aplicação em rede isolada na AWS - Rede Private
 - [x] Criação da rede utilizando Terraform
 - [x] Criação de AMI para servidores do cluster Kubernets utilizando pipeline Jenkins
 - [x] Subir o cluster Multi Master

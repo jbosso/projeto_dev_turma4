@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # -- Variaveis AWS
-uri='ssh -i /var/lib/jenkins/.ssh/id_rsa ubuntu@52.67.249.96'
+uri='ssh -i /var/lib/jenkins/.ssh/id_rsa ubuntu@localhost'
 
 export TF_VAR_vpcId=$($uri 'aws --region sa-east-1 ec2 describe-vpcs --filters Name=tag:Name,Values=vpc-Team4 --query "Vpcs[*].VpcId" --output text')
 export TF_VAR_amiId=$($uri 'aws --region sa-east-1 ec2 describe-images --owners self --filters Name=name,Values='terraform-kubernetes*' --query "reverse(sort_by(Images, &CreationDate))[0].ImageId" --output text' )
