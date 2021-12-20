@@ -7,12 +7,14 @@ export TF_VAR_vpcId=$($uri 'aws --region sa-east-1 ec2 describe-vpcs --filters N
 export TF_VAR_subnetIdPubA=$($uri 'aws --region sa-east-1 ec2 describe-subnets --filters "Name=vpc-id,Values='$TF_VAR_vpcId'" "Name=tag:Name,Values=*Pub_1a" --query "Subnets[*].SubnetId" --output text')
 export TF_VAR_keyPrivate='jb-key'
 
-export masterIP=$($uri 'aws --region sa-east-1 ec2 describe-instances --filters Name=tag:Name,Values=k8s-master0 --query "Reservations[*].Instances[*].[PrivateIpAddress]" --output text')
+export masterIP0=$($uri 'aws --region sa-east-1 ec2 describe-instances --filters Name=tag:Name,Values=k8s-master0 --query "Reservations[*].Instances[*].[PrivateIpAddress]" --output text')
+export masterIP1=$($uri 'aws --region sa-east-1 ec2 describe-instances --filters Name=tag:Name,Values=k8s-master1 --query "Reservations[*].Instances[*].[PrivateIpAddress]" --output text')
 
 echo $TF_VAR_vpcId
 echo $TF_VAR_subnetIdPubA
 echo $TF_VAR_keyPrivate
-echo $masterIP
+echo $masterIP0
+echo $masterIP1
 # -- 
 
 cd 06-Web/terraform
@@ -38,11 +40,29 @@ cd ../ansible
 # -- Criar o apontamento no nginx
 
 cat <<EOF > nginx/default
+upstream dev {
+	ip_hash;
+	server $masterIP0:30000;
+	server $masterIP1:30000;
+    }
+
+upstream stag {
+	ip_hash;
+	server $masterIP0:30001;
+	server $masterIP1:30001;
+    }
+	
+upstream prod {
+	ip_hash;
+	server $masterIP0:30002;
+	server $masterIP1:30002;
+    }
+	
 server {
         listen 30000 default_server;
         listen [::]:30000 default_server;
          location / {
-                proxy_pass  http://$masterIP:30000;
+                proxy_pass  http://dev;
         }
 }
 
@@ -50,7 +70,7 @@ server {
         listen 30001 default_server;
         listen [::]:30001 default_server;
          location / {
-                proxy_pass  http://$masterIP:30001;
+                proxy_pass  http://stag;
         }
 }
 
@@ -58,7 +78,7 @@ server {
         listen 30002 default_server;
         listen [::]:30002 default_server;
          location / {
-                proxy_pass  http://$masterIP:30001;
+                proxy_pass  http://prod;
         }
 }
 
@@ -69,7 +89,7 @@ server {
         index index.html index.htm index.nginx-debian.html;
         server_name _;
         location / {
-                try_files \$uri \$uri/ =404;
+                try_files $uri $uri/ =404;
         }
 }
 EOF
