@@ -5,7 +5,7 @@ provider "aws" {
 # Criar a VPC
 
 resource "aws_vpc" "main" {
-  cidr_block = "192.168.0.0/16"
+  cidr_block = "172.16.0.0/16"
   enable_dns_hostnames = true
 
   tags = {
@@ -22,7 +22,7 @@ resource "aws_internet_gateway" "ig" {
 # Criar Subnets Publicas
 resource "aws_subnet" "Team4_subnetPub_1a" {
   vpc_id            = "${var.vpcId}"
-  cidr_block        = "192.168.10.0/24"
+  cidr_block        = "172.16.10.0/24"
   availability_zone = "sa-east-1a"
 
   tags = {
@@ -32,7 +32,7 @@ resource "aws_subnet" "Team4_subnetPub_1a" {
 
 resource "aws_subnet" "Team4_subnetPub_1c" {
   vpc_id            = "${var.vpcId}"
-  cidr_block        = "192.168.11.0/24"
+  cidr_block        = "172.16.11.0/24"
   availability_zone = "sa-east-1c"
 
   tags = {
@@ -44,7 +44,7 @@ resource "aws_subnet" "Team4_subnetPub_1c" {
 
 resource "aws_subnet" "Team4_subnetPriv_1a" {
   vpc_id            = "${var.vpcId}"
-  cidr_block        = "192.168.12.0/24"
+  cidr_block        = "172.16.12.0/24"
   availability_zone = "sa-east-1a"
 
   tags = {
@@ -53,7 +53,7 @@ resource "aws_subnet" "Team4_subnetPriv_1a" {
 }
 resource "aws_subnet" "Team4_subnetPriv_1c" {
   vpc_id            = "${var.vpcId}"
-  cidr_block        = "192.168.13.0/24"
+  cidr_block        = "172.16.13.0/24"
   availability_zone = "sa-east-1c"
 
   tags = {
