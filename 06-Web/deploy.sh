@@ -16,20 +16,20 @@ echo $masterIP
 # -- 
 
 cd 06-Web/terraform
-#terraform init
-#terraform apply -auto-approve
+terraform init
+terraform apply -auto-approve
 
-#echo "Aguardando criação de maquinas ..."
-#sleep 10
+echo "Aguardando criação de maquinas ..."
+sleep 10
 
-#echo "[ec2-web]" > ../ansible/hosts
-#echo "$(terraform output | grep private_ip | awk '{print $2;exit}')" | sed -e "s/\",//g" >> ../ansible/hosts
+echo "[ec2-web]" > ../ansible/hosts
+echo "$(terraform output | grep private_ip | awk '{print $2;exit}')" | sed -e "s/\",//g" >> ../ansible/hosts
 
 export PublicIP="$(echo "$(terraform output | grep public_ip | awk '{print $2;exit}')" | sed -e "s/\",//g")"
 echo $PublicIP
 
-#echo "Aguardando criação de maquinas ..."
-#sleep 10
+echo "Aguardando criação de maquinas ..."
+sleep 10
 
 #
 cd ../ansible
@@ -172,5 +172,5 @@ cat <<EOF > static/index.html
 </html>
 EOF
 
-#echo "Executando ansible ::::: [ ansible-playbook -i hosts provisionar.yml -u ubuntu --private-key /var/lib/jenkins/.ssh/id_rsa ]"
-#ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts provisionar.yml -u ubuntu --private-key /var/lib/jenkins/.ssh/id_rsa
+echo "Executando ansible ::::: [ ansible-playbook -i hosts provisionar.yml -u ubuntu --private-key /var/lib/jenkins/.ssh/id_rsa ]"
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts provisionar.yml -u ubuntu --private-key /var/lib/jenkins/.ssh/id_rsa
