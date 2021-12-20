@@ -21,7 +21,7 @@ resource "aws_internet_gateway" "ig" {
 
 # Criar Subnets Publicas
 resource "aws_subnet" "Team4_subnetPub_1a" {
-  vpc_id            = "${var.vpcId}"
+  vpc_id            = "${aws_vpc.main.id}"
   cidr_block        = "172.16.10.0/24"
   availability_zone = "sa-east-1a"
 
@@ -31,7 +31,7 @@ resource "aws_subnet" "Team4_subnetPub_1a" {
 }
 
 resource "aws_subnet" "Team4_subnetPub_1c" {
-  vpc_id            = "${var.vpcId}"
+  vpc_id            = "${aws_vpc.main.id}"
   cidr_block        = "172.16.11.0/24"
   availability_zone = "sa-east-1c"
 
@@ -43,7 +43,7 @@ resource "aws_subnet" "Team4_subnetPub_1c" {
 # Criar Subnets Privada
 
 resource "aws_subnet" "Team4_subnetPriv_1a" {
-  vpc_id            = "${var.vpcId}"
+  vpc_id            = "${aws_vpc.main.id}"
   cidr_block        = "172.16.12.0/24"
   availability_zone = "sa-east-1a"
 
@@ -52,7 +52,7 @@ resource "aws_subnet" "Team4_subnetPriv_1a" {
   }
 }
 resource "aws_subnet" "Team4_subnetPriv_1c" {
-  vpc_id            = "${var.vpcId}"
+  vpc_id            = "${aws_vpc.main.id}"
   cidr_block        = "172.16.13.0/24"
   availability_zone = "sa-east-1c"
 
@@ -64,7 +64,7 @@ resource "aws_subnet" "Team4_subnetPriv_1c" {
 # Criar Tabela de Rota Publica
 
 resource "aws_route_table" "Team4_rtPub" {
-  vpc_id = "${var.vpcId}"
+  vpc_id = "${aws_vpc.main.id}"
   route = [
       {
         carrier_gateway_id         = ""
@@ -90,7 +90,7 @@ resource "aws_route_table" "Team4_rtPub" {
 # Criar Tabela de Rota Privada
 
 resource "aws_route_table" "Team4_rtPriv1a" {
-  vpc_id = "${var.vpcId}"
+  vpc_id = "${aws_vpc.main.id}"
   route = [
       {
         carrier_gateway_id         = ""
@@ -113,7 +113,7 @@ resource "aws_route_table" "Team4_rtPriv1a" {
   }
 }
 resource "aws_route_table" "Team4_rtPriv1c" {
-  vpc_id = "${var.vpcId}"
+  vpc_id = "${aws_vpc.main.id}"
   route = [
       {
         carrier_gateway_id         = ""
@@ -193,6 +193,6 @@ output "subnets" {
     "SubnetPub1c: ${aws_subnet.Team4_subnetPub_1c.id} " ,
     "SubnetPriv1a: ${aws_subnet.Team4_subnetPriv_1a.id} " ,
     "SubnetPriv1c: ${aws_subnet.Team4_subnetPriv_1c.id} " ,
-    "vpcId: ${var.vpcId} "
+    "vpcId: ${aws_vpc.main.id} "
   ]
 }
