@@ -51,6 +51,10 @@ Aprendizado dos colaboradores da DOTI para ferramentas de provisionamento de inf
 - Jhonatan Alessandro Bosso
 - Julio Rodrigo de Almeida Filho
 
+# Mentor
+
+- Danilo Aparecido (Didox)
+
 # Licença
 
 Esse projeto foi criado utilizando conta AWS sandbox provida pelo Itaú Unibanco.
