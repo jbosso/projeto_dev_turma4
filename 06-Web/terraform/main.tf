@@ -19,7 +19,6 @@ resource "aws_instance" "dev_nginx" {
 }
 
 resource "aws_security_group" "nginx_web" {
-  name        = "nginx_web"
   description = "nginx_web inbound traffic"
   vpc_id      = "${var.vpcId}"
 
