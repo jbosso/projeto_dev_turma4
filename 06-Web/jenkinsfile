@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone repo') {
+            steps {
+                git url: 'https://github.com/jbosso/projeto_dev_turma4.git', branch: 'main'
+            }
+        }
+        stage('Build Web') {
+            steps {
+                sh 'chmod +x 06-Web/deploy.sh'
+                sh '06-Web/deploy.sh'
+            }
+        }
+    }
+}
