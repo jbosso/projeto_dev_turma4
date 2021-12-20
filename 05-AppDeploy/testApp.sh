@@ -3,7 +3,7 @@
 # -- Variaveis AWS
 uri='ssh -i /var/lib/jenkins/.ssh/id_rsa ubuntu@52.67.249.96'
 
-export SQLdev=$($uri 'aws --region sa-east-1 ec2 describe-instances --filters Name=tag:Name,Values=mysql-dev --query "Reservations[*].Instances[*].[PrivateIpAddress]" --output text')
+export SQLdev=$($uri 'aws --region sa-east-1 ec2 describe-instances --filters Name=tag:Name,Values=mysql-dev --query "Reservations[*].Instances[*].[PrivateIpAddress]" --output text | grep 172')
 # -- 
 
 export USER='root'
