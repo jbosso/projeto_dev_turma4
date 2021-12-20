@@ -39,6 +39,8 @@ Projeto com 3 pipelines de deploy via Jenkins para aplicação JAVA rodando em K
 - JAVA
 - MYSQL
 - JENKINS
+- GIT
+- DOCKER
 
 # Contribuição
 
