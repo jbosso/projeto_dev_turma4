@@ -27,6 +27,7 @@ Projeto com 3 pipelines de deploy via Jenkins para aplicação JAVA rodando em K
 - [x] Subir o banco de dados MySQL e realizar o dump de um database inicial
 - [x] Subir a aplicação Java
 - [x] Subir um NGINX para direcionar aos ambientes: DEV, STAGE e PROD
+- [x] Subir um NGINX para Balanceamento de carga entre o cluster Kubernets
 
 # Tecnologias Usadas
 
