@@ -1,0 +1,73 @@
+pipeline {
+    agent any
+
+    stages {
+        
+        stage('Clone Infra') {
+            steps {
+                git url: 'https://github.com/jbosso/projeto_dev_turma4.git', branch: 'main'
+            }
+        }
+
+        stage('Clone App') {
+            steps {
+                sh 'rm -rf app-code'
+                sh 'mkdir app-code && cd app-code'
+                dir ('app-code'){
+                    git url: 'https://github.com/torneseumprogramador/spring-web-youtube.git', branch: 'deploy-docker'
+                }
+            }
+        }
+
+        stage('Build App') {
+            steps {
+                sh 'cd app-code && ./mvnw package -Dmaven.test.skip -DskipTests -Dmaven.javadoc.skip=true'
+                echo 'Building..'
+            }
+        }
+
+        stage('Test App') {
+            steps {
+                sh "export USER=root && export PASSWORD=\"$DB_PASSWORD\" && export DATABASE_URL='mysql://192.168.13.102:3306/SpringWebYoutubeTest?useTimezone=true&serverTimezone=UTC' && cd app-code && ./mvnw test"
+                echo 'Testing....'
+                //sh 'nohup ./start.sh &'
+                //echo ' Starting....'
+            }
+        }
+
+        stage('Create and Push Docker image') {
+            steps {
+                sh "cd app-code && docker build -t jabosso/projetofinal-spr-web -f Dockerfile . && docker tag jabosso/projetofinal-spr-web:latest hub.docker.com/r/jabosso/projetofinal-spr-web && docker push jabosso/projetofinal-spr-web"
+                echo 'pushing docker image..'
+            }
+		}
+
+        stage('Deploy Key Base64') {
+            steps {
+                sh 'chmod +x 05-AppDeploy/mysqlSecret.sh'
+                sh "05-AppDeploy/mysqlSecret.sh"
+            }
+        }
+			
+        stage('Deploy Dev') {
+            steps {
+                sh 'chmod +x 05-AppDeploy/deployDev.sh'
+                sh "05-AppDeploy/deployDev.sh"
+            }
+        }
+		
+        stage('Deploy Stage') {
+            steps {
+                sh 'chmod +x 05-AppDeploy/deployStag.sh'
+                sh "05-AppDeploy/deployStag.sh"
+            }
+        }
+		
+        stage('Deploy Prod') {
+            steps {
+                sh 'chmod +x 05-AppDeploy/deployProd.sh'
+                sh "05-AppDeploy/deployProd.sh"
+            }
+        }
+    }
+}

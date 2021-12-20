@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone repo') {
+            steps {
+                git url: 'https://github.com/jbosso/projeto_dev_turma4.git', branch: 'main'
+            }
+        }
+        stage('Build Cluster') {
+            steps {
+                sh 'chmod +x 03-MultiMaster/deploy.sh'
+                sh '03-MultiMaster/deploy.sh'
+            }
+        }
+        stage('Test Cluster') {
+            steps {
+                sh 'chmod +x 03-MultiMaster/testDeploy.sh'
+                sh '03-MultiMaster/testDeploy.sh'
+            }
+        }
+    }
+}

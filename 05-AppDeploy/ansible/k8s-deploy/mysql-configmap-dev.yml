@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-configmap-dev
+data:
+  USER: root
+  # PASSWORD: root
+  DATABASE_URL: mysql://192.168.13.102:3306/SpringWebYoutubeTest?useTimezone=true&serverTimezone=UTC

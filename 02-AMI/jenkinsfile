@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Git') {
+            steps {
+                git url: 'https://github.com/jbosso/projeto_dev_turma4.git', branch: 'main'
+            }
+        }
+        stage('Build EC2') {
+            steps {
+                sh "chmod +x 02-AMI/deploy.sh"
+                sh "02-AMI/deploy.sh"
+            }
+        }
+        stage('Test kubernetes e docker') {
+            steps {
+                sh "chmod +x 02-AMI/testDeploy.sh"
+                sh "02-AMI/testDeploy.sh"
+            }
+        }
+        stage('Creating ami') {
+            steps {
+                sh "chmod +x 02-AMI/createAMI.sh"
+                sh "02-AMI/createAMI.sh"
+            }
+        }
+        stage('Destroy') {
+            steps {
+                sh "chmod +x 02-AMI/destroyDeploy.sh"
+                sh "02-AMI/destroyDeploy.sh"
+            }
+        }
+    }
+}

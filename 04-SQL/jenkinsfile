@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    parameters {
+        password(name: 'DB_PASSWORD', defaultValue: 'root', description: 'Senha para database')
+    }
+
+    stages {
+        stage('Clone repo') {
+            steps {
+                git url: 'https://github.com/jbosso/projeto_dev_turma4.git', branch: 'main'
+            }
+        }
+        stage('Build Cluster') {
+            steps {
+                sh 'chmod +x 04-SQL/deploy.sh'
+                sh "04-SQL/deploy.sh"
+            }
+        }
+        stage('Insert Database') {
+            steps {
+                sh 'chmod +x 04-SQL/updateSQL.sh'
+                sh "04-SQL/updateSQL.sh"
+            }
+        }
+    }
+}

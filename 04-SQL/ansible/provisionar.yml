@@ -1,0 +1,79 @@
+- hosts: 
+  - ec2-mysql-dev
+  tasks:
+    - name: "Configura hostname ec2-mysql-dev"
+      shell: hostname ec2-mysql-dev && echo "ec2-mysql-dev" > /etc/hostname
+      become: yes
+- hosts: 
+  - ec2-mysql-stag
+  tasks:
+    - name: "Configura hostname ec2-mysql-stag"
+      shell: hostname ec2-mysql-stag && echo "ec2-mysql-stag" > /etc/hostname
+      become: yes
+- hosts: 
+  - ec2-mysql-prod
+  tasks:
+    - name: "Configura hostname ec2-mysql-prod"
+      shell: hostname ec2-mysql-prod && echo "ec2-mysql-prod" > /etc/hostname
+      become: yes
+# ---
+- hosts: all
+  environment:
+    PASSWORD: "{{ lookup('env', 'DB_PASSWORD') }}"
+
+  tasks:
+    - name: "Roda: sudo apt update"
+      become: yes
+      apt:
+        update_cache: yes
+        #upgrade: yes
+
+    - name: "Instala pacotes"
+      apt:
+        name: "{{ item }}"
+        state: latest
+      become: yes
+      with_items:
+        - mysql-server
+        - python3-pycurl
+        - python3-mysqldb
+
+
+    - name: "Lavanta serviço do mysql"
+      become: yes
+      service:
+        name: mysql
+        state: started
+
+    - name: "Tornando senha nova visivel para o Ansible"
+      become: yes
+      copy:
+        src: "dumpsql/.my.cnf"
+        dest: "/root/.my.cnf"
+        owner: root
+        mode: 0600
+
+    - name: "Libera acesso MySQL"
+      become: yes
+      lineinfile:
+        path: /etc/mysql/mysql.conf.d/mysqld.cnf
+        regexp: '^bind-address'
+        line: 'bind-address = 0.0.0.0'
+    
+    - name: "Libera acesso MySQL"
+      become: yes
+      lineinfile:
+        path: /etc/mysql/mysql.conf.d/mysqld.cnf
+        regexp: '^mysqlx-bind-address'
+        line: 'mysqlx-bind-address = 0.0.0.0'
+
+    - name: "Libera acesso MySQL"
+      become: yes
+      lineinfile:
+        path: /etc/mysql/mysql.conf.d/mysqld.cnf
+        regexp: '^port'
+        line: 'port = 3306'
+
+    - name: "Restart mysql"
+      become: yes
+      shell: "service mysql restart"

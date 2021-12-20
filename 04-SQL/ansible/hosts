@@ -1,0 +1,6 @@
+[ec2-mysql-dev]
+192.168.13.38
+[ec2-mysql-stag]
+192.168.13.172
+[ec2-mysql-prod]
+192.168.13.19
