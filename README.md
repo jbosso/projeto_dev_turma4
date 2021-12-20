@@ -46,8 +46,8 @@ Aprendizado dos colaboradores da DOTI para ferramentas de provisionamento de inf
 # Autores
 
 - Layane Viana Brito - Comunidade ITSM | Squad F(x)
-- Julia Cechinato - Mainframe | Squad Route 6-CICS
-- Jose Roberto Montanhez Junior - Mainframe | Squad T-REXX
+- Julia Cechinato - Comunidade Mainframe | Squad Route 6-CICS
+- Jose Roberto Montanhez Junior - Comunidade Mainframe | Squad T-REXX
 - Jhonatan Alessandro Bosso - Analista de Engenharia | SRE Core
 - Julio Rodrigo de Almeida Filho - Governança de TI | ITSM / Service Now
 
