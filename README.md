@@ -48,8 +48,8 @@ Aprendizado dos colaboradores da DOTI para ferramentas de provisionamento de inf
 - Layane Viana Brito
 - Julia Cechinato
 - Jose Roberto Montanhez Junior
-- Jhonatan Alessandro Bosso
-- Julio Rodrigo de Almeida Filho
+- Jhonatan Alessandro Bosso - Analista de Engenharia | SRE Core
+- Julio Rodrigo de Almeida Filho - Governança de TI | ITSM / Service Now
 
 # Mentor
 
