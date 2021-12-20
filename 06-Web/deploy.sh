@@ -39,7 +39,7 @@ cd ../ansible
 
 # -- Criar o apontamento no nginx
 
-cat <<EOF > nginx/default
+cat <<EOF > nginx/load-balancing
 upstream dev {
 	ip_hash;
 	server $masterIP0:30000;
