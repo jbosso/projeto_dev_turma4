@@ -35,7 +35,7 @@
       become: yes
 
     - name: "Apaga o Default"
-      shell: rm -f /etc/nginx/sites-available/default
+      shell: rm -rf /etc/nginx/sites-available/default
       become: yes
 
     - name: "Trocando nginx para ler html"
