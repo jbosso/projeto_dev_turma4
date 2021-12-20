@@ -7,7 +7,7 @@ export SQLdev=$($uri 'aws --region sa-east-1 ec2 describe-instances --filters Na
 # -- 
 
 export USER='root'
-export PASSWORD=\"$DB_PASSWORD\" 
+export PASSWORD="$DB_PASSWORD" 
 export DATABASE_URL='mysql://'$SQLdev':3306/SpringWebYoutubeTest?useTimezone=true&serverTimezone=UTC'
 
 echo $USER
