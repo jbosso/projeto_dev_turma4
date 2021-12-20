@@ -7,8 +7,8 @@ export TF_VAR_vpcId=$($uri 'aws --region sa-east-1 ec2 describe-vpcs --filters N
 export TF_VAR_subnetIdPubA=$($uri 'aws --region sa-east-1 ec2 describe-subnets --filters "Name=vpc-id,Values='$TF_VAR_vpcId'" "Name=tag:Name,Values=*Pub_1a" --query "Subnets[*].SubnetId" --output text')
 export TF_VAR_keyPrivate='jb-key'
 
-export masterIP0=$($uri 'aws --region sa-east-1 ec2 describe-instances --filters Name=tag:Name,Values=k8s-master0 --query "Reservations[*].Instances[*].[PrivateIpAddress]" --output text | grep 172')
-export masterIP1=$($uri 'aws --region sa-east-1 ec2 describe-instances --filters Name=tag:Name,Values=k8s-master1 --query "Reservations[*].Instances[*].[PrivateIpAddress]" --output text | grep 172')
+export masterIP0=$($uri 'aws --region sa-east-1 ec2 describe-instances --filters Name=tag:Name,Values=k8s-master0 --query "Reservations[*].Instances[*].[PrivateIpAddress]" --output text')
+export masterIP1=$($uri 'aws --region sa-east-1 ec2 describe-instances --filters Name=tag:Name,Values=k8s-master1 --query "Reservations[*].Instances[*].[PrivateIpAddress]" --output text')
 
 echo $TF_VAR_vpcId
 echo $TF_VAR_subnetIdPubA
