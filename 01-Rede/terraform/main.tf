@@ -71,7 +71,7 @@ resource "aws_route_table" "Team4_rtPub" {
         cidr_block                 = "0.0.0.0/0"
         destination_prefix_list_id = ""
         egress_only_gateway_id     = ""
-        gateway_id                 = "${var.ig}"
+        gateway_id                 = "${aws_internet_gateway.ig.id}"
         instance_id                = ""
         ipv6_cidr_block            = ""
         local_gateway_id           = ""
