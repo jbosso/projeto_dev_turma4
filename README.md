@@ -61,4 +61,5 @@ Esse projeto foi criado utilizando conta AWS sandbox provida pelo Itaú Unibanco
 
 # Agradecimentos
 
-Agradecemos ao nosso Mento Danilo Aparecido, a Gama Academy e ao Itaú por nos propiciarem esse treinamento e as nossas familias pelo apoio nas 3 semanas de estudos.
+Nossos agradecimentos ao Danilo, por toda paciência e orientação à nossa turma.
+Agradecemos à Gama Academy e ao Itaú por nos propiciarem esse treinamento e as nossas familias pelo apoio nas 3 semanas de estudos.
