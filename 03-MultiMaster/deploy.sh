@@ -3,7 +3,7 @@
 # -- Variaveis AWS
 uri='ssh -i /var/lib/jenkins/.ssh/id_rsa ubuntu@52.67.249.96'
 
-export TF_VAR_vpcId=$($uri 'aws --region sa-east-1 ec2 describe-vpcs --filters Name=tag:Name,Values=vpc-Team4-JB --query "Vpcs[*].VpcId" --output text')
+export TF_VAR_vpcId=$($uri 'aws --region sa-east-1 ec2 describe-vpcs --filters Name=tag:Name,Values=vpc-Team4 --query "Vpcs[*].VpcId" --output text')
 export TF_VAR_amiId=$($uri 'aws --region sa-east-1 ec2 describe-images --owners self --filters Name=name,Values='terraform-kubernetes*' --query "reverse(sort_by(Images, &CreationDate))[0].ImageId" --output text' )
 export TF_VAR_subnets="[$($uri aws --region sa-east-1 ec2 describe-subnets --filters "Name=vpc-id,Values='$TF_VAR_vpcId'" "Name=tag:Name,Values=*Priv*" --query "Subnets[*].SubnetId" --output text | awk '{print "\""$1"\""", ""\""$2"\""}')]"
 export TF_VAR_keyPrivate='jb-key'
@@ -117,6 +117,7 @@ ff02::3 ip6-allhosts
 echo  "Rodando provisionar.yml ..."
 cd ../ansible
 
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts provisionar.yml -u ubuntu --private-key /var/lib/jenkins/.ssh/id_rsa
 ANSIBLE_OUT=$(ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts provisionar.yml -u ubuntu --private-key /var/lib/jenkins/.ssh/id_rsa)
 
 K8S_JOIN_MASTER=$(echo $ANSIBLE_OUT | grep -oP "(kubeadm join.*?certificate-key.*?)'" | sed 's/\\//g' | sed "s/'t//g" | sed "s/'//g" | sed "s/,//g")
