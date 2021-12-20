@@ -44,7 +44,7 @@
 
     - name: "Trocando nginx para ler html"
       copy:
-        src: "nginx/load-balancing"
+        src: "nginx/load-balancing.conf"
         dest: "/etc/nginx/conf.d"
       become: yes
       notify:
