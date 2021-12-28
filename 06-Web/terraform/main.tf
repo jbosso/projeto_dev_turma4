@@ -13,7 +13,7 @@ resource "aws_instance" "dev_nginx" {
     volume_size = 16
   }
   tags = {
-    Name = "dev-img-kubernetes"
+    Name = "dev-nginx"
   }
   vpc_security_group_ids = [aws_security_group.nginx_web.id]
 }
